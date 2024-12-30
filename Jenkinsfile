@@ -44,7 +44,7 @@ pipeline{
         }
         stage("TRIVY"){
             steps{
-                sh "trivy image mprakashkami/final-java-application-edstruments:latest > trivy.txt" 
+                sh "trivy image java-edstruments > trivy.txt" 
             }
         }
     }
