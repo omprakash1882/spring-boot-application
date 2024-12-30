@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: java-edstruments
+  name: java-edstruments
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: java-edstruments
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: java-edstruments
+    spec:
+      containers:
+      - image: omprakashkami/final-java-application-edstruments
+        name: java-edstruments
+        ports:
+        - containerPort: 8080
+        resources: {}
+status: {}
