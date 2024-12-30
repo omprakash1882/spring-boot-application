@@ -5,7 +5,7 @@
 # EXPOSE 8080
 # CMD ["java", "-jar", "/target/react-app-0.0.1-SNAPSHOT.jar"]
 
-# Use the official Maven image to build the application
+# Use the official Maven image to build the java application
 FROM maven:latest AS build
 
 # Set the working directory
