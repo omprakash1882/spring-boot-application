@@ -4,6 +4,7 @@ metadata:
   creationTimestamp: null
   labels:
     app: java-edstruments
+    gitops: argo
   name: java-edstruments
 spec:
   replicas: 1
