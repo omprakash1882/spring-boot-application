@@ -1,4 +1,3 @@
-
 name: Build and Push Docker Image
 
 on:
@@ -46,3 +45,4 @@ jobs:
       # Optional: Post-build cleanup (if needed)
       - name: Post-build cleanup
         run: docker image prune -f
+
