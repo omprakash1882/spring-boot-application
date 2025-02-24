@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     tags:
-      - '*'  # This will trigger the workflow for any tag creation
+      - '*'  # Triggers the workflow when any tag is pushed
 
 jobs:
   build-and-push:
@@ -32,6 +32,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      # Extract GitHub tag name from the reference
+      - name: Extract Tag Name
+        run: echo "IMAGE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      # Debugging step to verify the tag
+      - name: Debug GitHub Tag
+        run: echo "Docker Image Tag: ${{ env.IMAGE_TAG }}"
+
       # Build and push the Docker image
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
@@ -40,9 +48,8 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/myjava:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/myjava:${{ github.ref_name }}  # Use the tag as the image tag
+            ${{ secrets.DOCKERHUB_USERNAME }}/myjava:${{ env.IMAGE_TAG }}
 
-      # Optional: Post-build cleanup (if needed)
-      - name: Post-build cleanup
+      # Optional: Post-build cleanup
+      - name: Cleanup
         run: docker image prune -f
-
