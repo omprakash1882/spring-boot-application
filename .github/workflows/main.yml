@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     tags:
-      - '*'  
+      - '*'  # This will trigger the workflow for any tag creation
 
 jobs:
   build-and-push:
@@ -39,5 +39,9 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/myapp:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/myjava:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/myjava:${{ github.ref_name }}  # Use the tag as the image tag
+
+      # Optional: Post-build cleanup (if needed)
+      - name: Post-build cleanup
+        run: docker image prune -f
