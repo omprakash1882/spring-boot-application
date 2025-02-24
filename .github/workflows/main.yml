@@ -48,7 +48,7 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/myjava:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/myjava:${{ env.IMAGE_TAG }}  # Using extracted GitHub tag
+            ${{ secrets.DOCKERHUB_USERNAME }}/myjava:${{ env.IMAGE_TAG }}
 
       # Optional: Post-build cleanup (if needed)
       - name: Post-build cleanup
