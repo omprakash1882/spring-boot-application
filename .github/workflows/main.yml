@@ -2,8 +2,9 @@ name: Build and Push Docker Image
 
 on:
   push:
-    tags:
-      - '*'  # This will trigger the workflow for any tag creation
+    branches:
+      - main  # This will trigger the workflow for any tag creation
+  workflow_dispatch:
 
 jobs:
   build-and-push:
@@ -49,7 +50,32 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/myjava:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/myjava:${{ env.IMAGE_TAG }}
+      
 
       # Optional: Post-build cleanup (if needed)
       - name: Post-build cleanup
         run: docker image prune -f
+  deploy-to-gke:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: github.event_name == 'workflow_dispatch'  # Ensures manual trigger only
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Authenticate with GKE
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GKE_SA_KEY }}
+
+      - name: Set up kubectl
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: vibrant-victory-452605-p3
+
+      - name: Get GKE credentials
+        run: gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project vibrant-victory-452605-p3
+      - name: Deploy to GKE
+        run: |
+          kubectl set image deployment/nginx=redis
+          kubectl rollout status deployment/nginx
