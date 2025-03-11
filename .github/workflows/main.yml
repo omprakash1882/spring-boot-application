@@ -77,5 +77,5 @@ jobs:
         run: gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project vibrant-victory-452605-p3
       - name: Deploy to GKE
         run: |
-          kubectl set image deployment/nginx=redis
+          kubectl set image deployment/nginx nginx=redis
           kubectl rollout status deployment/nginx
