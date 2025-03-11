@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main  # This will trigger the workflow for any tag creation
-  workflow_dispatch:
+  # workflow_dispatch:
 
 jobs:
   # build-and-push:
@@ -58,7 +58,7 @@ jobs:
   deploy-to-gke:
     runs-on: ubuntu-latest
     # needs: build-and-push
-    if: github.event_name == 'workflow_dispatch'  # Ensures manual trigger only
+    # if: github.event_name == 'workflow_dispatch'  # Ensures manual trigger only
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
