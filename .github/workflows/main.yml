@@ -35,7 +35,6 @@ jobs:
         push: true
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/myjava:latest
-          ${{ secrets.DOCKERHUB_USERNAME }}/myjava:${{ env.IMAGE_TAG }}
 
     - name: Post-build cleanup
       run: docker image prune -f
