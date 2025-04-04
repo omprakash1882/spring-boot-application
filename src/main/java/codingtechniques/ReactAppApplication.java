@@ -1,12 +1,12 @@
 package codingtechniques;
 
-import java.util.stream.Collectors;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class ReactAppApplication {
